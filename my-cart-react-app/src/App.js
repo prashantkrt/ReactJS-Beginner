@@ -69,6 +69,15 @@ function App() {
     setTotalAmount(0);
   }
 
+  const removeItem =(index)=>{
+    let newProductList = [...productList];
+    let newTotalAmount = totalAmount;
+    newTotalAmount-=newProductList[index].price * newProductList[index].quantity; 
+    setTotalAmount(newTotalAmount); 
+    newProductList.splice(index,1);
+    setProductList(newProductList); 
+  }
+
   return (
     <>
       <Navbar />
@@ -76,10 +85,11 @@ function App() {
         <ProductList
           productList={productList}
           incrementQuantity={incrementQuantity}
-          decrementQuantity={decrementQuantity}         
+          decrementQuantity={decrementQuantity}
+          removeItem={removeItem}         
         />
       </main>
-      <Footer  totalAmount={totalAmount} reset={reset} />
+      <Footer  totalAmount={totalAmount} reset={reset}/>
     </>
   );
 }
