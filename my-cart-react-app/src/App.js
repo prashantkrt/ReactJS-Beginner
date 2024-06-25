@@ -79,11 +79,21 @@ function App() {
     setProductList(newProductList); 
   }
 
+  const addItem=(productName, productPrice)=>{
+    let newProductList = [...productList];
+    newProductList.push({
+      price: productPrice,
+      productName: productName,
+      quantity: 0      
+    });
+    setProductList(newProductList);
+  }
+
   return (
     <>
       <Navbar />
       <main className="container mt-5">
-        <AddItem></AddItem>
+        <AddItem addItem={addItem}/>
         <ProductList
           productList={productList}
           incrementQuantity={incrementQuantity}
