@@ -12,7 +12,7 @@ class AddItem extends Component {
     return (
       <form className="row mb-5"  onSubmit={(e) => {
         e.preventDefault();
-        this.props.addItem(this.state.productName,this.state.productPrice);
+        this.props.addItem(this.state.productName,Number(this.state.productPrice));
       }}>
         <div className="mb-3 col-6">
           <label htmlFor="inputName" className="form-label">
@@ -40,7 +40,7 @@ class AddItem extends Component {
             id="inputPrice"
             name="productPrice"
             onChange={(event)=>{
-              this.setState({productPrice : event.currentTarget.value});
+              this.setState({productPrice : Number(event.currentTarget.value)});
             }}
             value={this.state.productPrice}
           />
