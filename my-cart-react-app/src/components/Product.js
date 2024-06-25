@@ -27,7 +27,7 @@ export default function Product(props) {
         {props.product.price*props.product.quantity}
       </div>
      <div className="col-3">    
-     <button type="button" class="btn btn-danger" onClick={()=>{props.removeItem(props.index)}}>Delete</button>
+     <button type="button" className="btn btn-danger" onClick={()=>{props.removeItem(props.index)}}>Delete</button>
      </div>
     </div>
   );
