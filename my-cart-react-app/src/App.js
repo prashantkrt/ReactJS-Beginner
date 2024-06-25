@@ -1,12 +1,11 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import Footer from "./components/Footer";
-import Product from "./components/Product";
 
 function App() {
-  const productList = [
+  let products = [
     {
       price: 9999,
       productName: "Samsung Smart watch",
@@ -23,13 +22,13 @@ function App() {
       quantity: 0,
     },
     {
-      price: 2200,
-      productName: "Micromax Smart watch",
+      price: 22000,
+      productName: "Apple Smart watch",
       quantity: 0,
     },
     {
-      price: 1000,
-      productName: "VVCS Smart watch",
+      price: 2500,
+      productName: "Noise Smart watch",
       quantity: 0,
     },
     {
@@ -39,11 +38,48 @@ function App() {
     },
   ];
 
+  let [productList, setProductList] = useState(products);
+  let [totalAmount , setTotalAmount]=useState(0);
+
+  const incrementQuantity = (index) => {
+    let newProductList = [...productList];
+    newProductList[index].quantity++;   
+    let newTotalAmount = totalAmount;
+    newTotalAmount+=newProductList[index].price;
+    setProductList(newProductList);
+    setTotalAmount(newTotalAmount);
+  };
+
+  const decrementQuantity = (index) => {
+    let newProductList = [...productList];
+    let newTotalAmount = totalAmount;
+    let q = newProductList[index].quantity;    
+    q > 0 ? newProductList[index].quantity-- : newProductList[index].quantity=0;
+    newTotalAmount = (newTotalAmount < newProductList[index].price) ? newTotalAmount=0 : newTotalAmount-newProductList[index].price;    
+    setProductList(newProductList);
+    setTotalAmount(newTotalAmount);
+  };
+
+  const reset=()=>{
+    let newProductlist =[...productList];
+    newProductlist.map((product)=>{
+      product.quantity=0;
+    })
+    setProductList(newProductlist);
+    setTotalAmount(0);
+  }
+
   return (
     <>
       <Navbar />
-      <ProductList productList={productList} />    
-      <Footer />
+      <main className="container mt-5">
+        <ProductList
+          productList={productList}
+          incrementQuantity={incrementQuantity}
+          decrementQuantity={decrementQuantity}         
+        />
+      </main>
+      <Footer  totalAmount={totalAmount} reset={reset} />
     </>
   );
 }
